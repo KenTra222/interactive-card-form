@@ -5,13 +5,15 @@ import { OrbitControls, Html, Stage  } from '@react-three/drei';
 import Logo from '/images/card-logo.svg'
 import Confirmed from '/images/icon-complete.svg'
 import { format } from 'date-fns';
+import * as THREE from 'three'
  
 
 
  
 
 function App() {
-  const card = useRef()
+  const card = useRef<THREE.Mesh | null>(null);
+
   const [cardholderName, setCardholderName] = useState('');
   const [cardNumber, setCardNumber] = useState('');
   const [expDate, setExpDate] = useState('01/23');
@@ -45,13 +47,10 @@ function App() {
   }
   };
 
-  const handleSubmit = (e: { preventDefault: () => void; }) => {
-    e.preventDefault();
-    console.log('submit')
-  };
+ 
 
   useEffect(() => {
-    let typingTimeout;
+    let typingTimeout: number | undefined;
   
     if (!isTypingCVC) {
       // Delay the rotation reset to give a smoother experience
@@ -77,7 +76,7 @@ function App() {
                 flat
                 linear>
                   <OrbitControls/>
-                  <ambientLight intesnity={0.9}/>
+                  <ambientLight intensity={0.9}/>
                   <Stage adjustCamera intensity={0.5} shadows="contact" environment="city">
                    
               {/* card */}
@@ -184,7 +183,7 @@ function App() {
                       onClick={() => setConfirmed(!confirmed)}>Submit</button>
             </form> }
 
-                    {confirmed && <ThankYou setConfirmed={setConfirmed}/>}
+            {confirmed && <ThankYou setConfirmed={setConfirmed} />}
                   
             </section>
           </div>
@@ -197,8 +196,11 @@ function App() {
 
 export default App
 
+interface ThankYouProps {
+  setConfirmed: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
-  function ThankYou( {setConfirmed} ) {
+  function ThankYou( {setConfirmed}:ThankYouProps ) {
   return(
     <section className='flex mx-auto flex-col justify-center items-center '>
       <img src={Confirmed} className='h-20 w-20 mb-2'/>
