@@ -75,7 +75,7 @@ function App() {
               <Canvas
                 flat
                 linear>
-                  <OrbitControls/>
+                  {/* <OrbitControls/> */}
                   <ambientLight intensity={0.9}/>
                   <Stage adjustCamera intensity={0.5} shadows="contact" environment="city">
                    
