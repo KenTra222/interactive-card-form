@@ -17,3 +17,7 @@
     border-radius: 20px;
 
  }
+
+ .card-rotate {
+  transition: transform 0.5s ease;
+}

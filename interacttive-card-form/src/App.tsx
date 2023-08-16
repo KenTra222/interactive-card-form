@@ -1,4 +1,4 @@
-import { SetStateAction, useState, useRef } from 'react'
+import { SetStateAction, useState, useRef, useEffect } from 'react'
 import './App.css'
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, Html, Stage  } from '@react-three/drei';
@@ -17,6 +17,8 @@ function App() {
   const [expDate, setExpDate] = useState('01/23');
   const [cvc, setCVC] = useState(' ');
   const [confirmed, setConfirmed] = useState(false)
+  const [isTypingCVC, setIsTypingCVC] = useState(false);
+
   
   const handleCardholderNameChange = (e: { target: { value: SetStateAction<string>; }; }) => {
     setCardholderName(e.target.value);
@@ -32,7 +34,15 @@ function App() {
 
   const handleCVCChange = (e: { target: { value: SetStateAction<string>; }; }) => {
     setCVC(e.target.value);
-    // card.current.rotation.y = Math.PI * 1
+    const newCVC = e.target.value;
+    setCVC(newCVC);
+     setIsTypingCVC(newCVC.length > 0);
+
+  // Rotate the card when typing starts
+  if(card.current){
+
+    card.current.rotation.y = Math.PI;
+  }
   };
 
   const handleSubmit = (e: { preventDefault: () => void; }) => {
@@ -40,6 +50,24 @@ function App() {
     console.log('submit')
   };
 
+  useEffect(() => {
+    let typingTimeout;
+  
+    if (!isTypingCVC) {
+      // Delay the rotation reset to give a smoother experience
+      typingTimeout = setTimeout(() => {
+        if (card.current) {
+          card.current.rotation.y = 0;
+        }
+      }, 300);
+    }
+  
+    return () => {
+      clearTimeout(typingTimeout);
+    };
+  }, [isTypingCVC]);
+  
+  
   return (
   
  
@@ -52,9 +80,9 @@ function App() {
                   <ambientLight intesnity={0.9}/>
                   <Stage adjustCamera intensity={0.5} shadows="contact" environment="city">
                    
-
+              {/* card */}
                   <group rotation={[Math.PI * .0185 ,Math.PI * -.85, Math.PI *  -1.0045]}>
-                    <mesh ref={card} position={[0,-3,-10]} >
+                  <mesh ref={card} position={[0, -3, -10]} rotation-y={isTypingCVC ? Math.PI : 0}>
                       <boxGeometry  args={[8,4, 2]}/>
                       <meshStandardMaterial
                     color="blue"
