@@ -1,6 +1,6 @@
 import { SetStateAction, useState } from 'react'
 
-const Form = () => {
+const Form = (props: any) => {
     const [cardholderName, setCardholderName] = useState('');
     const [cardNumber, setCardNumber] = useState('');
     const [expDate, setExpDate] = useState('');

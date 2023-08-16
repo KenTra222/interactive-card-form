@@ -2,7 +2,7 @@ import {  Html, Stage } from '@react-three/drei';
 import Logo from '/images/card-logo.svg'
 
 
-const Experience = () => {
+const Experience = (props:any) => {
   return (
     <Stage adjustCamera intensity={0.5} shadows="contact" environment="city">
 
@@ -27,10 +27,10 @@ const Experience = () => {
                     <img src={Logo} className='w-20 h-10 '/>
                     <div className=' w-full'>
                      
-                        <h2 className='text-white text-2xl mb-6 tracking-widest '> 1234 1234 1234 1234</h2>
+                        <h2 className='text-white text-2xl mb-6 tracking-widest '> {props.cardNumber}</h2>
                         <ul className='w-full text-white flex items-center justify-between'>
-                          <p className='text-xl tracking-widest'>John Doe</p>
-                          <p className='text-xl tracking-widest'>00/00</p>
+                          <p className='text-xl tracking-widest'>{props.cardholderName}</p>
+                          <p className='text-xl tracking-widest'>{props.expDate}</p>
                         </ul>
                     
                     </div>
@@ -44,7 +44,7 @@ const Experience = () => {
                   rotation={[0, 0, Math.PI * 1]}>
                   <div className='cardBack'>
               
-                    <p className='absolute right-8 top-16 my-4 pt-1 text-xl text-white '>000</p>
+                    <p className='absolute right-8 top-16 my-4 pt-1 text-xl text-white '>{props.cvc}</p>
                   </div>
                 </Html>
                      </mesh>
