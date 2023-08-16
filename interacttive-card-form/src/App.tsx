@@ -1,7 +1,7 @@
 import { SetStateAction, useState, useRef, useEffect } from 'react'
 import './App.css'
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls, Html, Stage  } from '@react-three/drei';
+import {   Html, Stage  } from '@react-three/drei';
 import Logo from '/images/card-logo.svg'
 import Confirmed from '/images/icon-complete.svg'
 import { format } from 'date-fns';
