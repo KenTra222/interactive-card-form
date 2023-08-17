@@ -70,13 +70,13 @@ function App() {
   return (
   
  
-    <main className='w-full h-screen bg-black grid grid-cols-10'>
+    <main className='w-full h-screen  grid grid-cols-10'>
           <div className='gradient col-span-3'  >
               <Canvas
                 flat
                 linear>
                   {/* <OrbitControls/> */}
-                  <ambientLight intensity={0.9}/>
+                  <ambientLight intensity={0.9} position={[2,5,0]}/>
                   <Stage adjustCamera intensity={0.5} shadows="contact" environment="city">
                    
               {/* card */}
